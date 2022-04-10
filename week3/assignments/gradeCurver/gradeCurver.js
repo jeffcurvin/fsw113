@@ -1,9 +1,15 @@
 // declare each of the variables marked with "**" in the appropriate scope and using the appropriate type
 
 // create an event listener that calls the curveGrade() function when the Curve It!! button is clicked
-
+document.getElementById('submit').addEventListener('click',function (){
+    curveGrades()
+})
 // create an event listener that resets the scores and grades to their defaults when the Reset button is clicked
-
+document.getElementById('reset').addEventListener('click',function (){
+    document.getElementById('grades').innerText="Curved Grades Show Here"
+    document.getElementById('scores').value=""
+})
+let mean, gradeSlice
 function applyBell(grade, index, ary) {
     switch (true) {
         case grade >= (mean + (gradeSlice * 2)): 
@@ -38,31 +44,27 @@ function convertArray(obj) {
 // empty lines, can you get the number of lines down to 8?
 
 function curveGrades() {
-    **sum = function (accumulator, currentValue) {
-        return accumulator + currentValue
-    }
+    const sum =( accumulator, currentValue) => accumulator + currentValue
 
-    **sumGrades = function(array) {
-        return array.reduce(sum)
-    }
-
-    **aryGrades = convertArray(document.querySelector('#scores'))
-
-    **minGrade = aryGrades.reduce(function(a, b) {
-        return Math.min(a, b)
-    })
+    const sumGrades = array =>array.reduce(sum)
+       
     
-    **maxGrade = aryGrades.reduce(function(a, b) {
-        return Math.max(a, b)
-    })
-    
-    **mean = sumGrades(aryGrades) / aryGrades.length
 
-    **range = maxGrade - minGrade
+    const aryGrades = convertArray(document.querySelector('#scores'))
+
+    const minGrade = aryGrades.reduce((a, b) => Math.min(a, b))
+   
+    
+    const maxGrade = aryGrades.reduce((a, b) => Math.max(a, b))
+    
+     mean = sumGrades(aryGrades) / aryGrades.length
+
+    const range = maxGrade - minGrade
 
     gradeSlice = range / 5
 
     aryGrades.forEach(applyBell)
 
     // write the value of aryGrades to the grades div in the HTML document
+    document.getElementById('grades').innerText=aryGrades
 }
